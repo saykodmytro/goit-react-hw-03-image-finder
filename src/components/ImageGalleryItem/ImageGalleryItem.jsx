@@ -1,13 +1,11 @@
 import React from 'react';
 import css from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = () => {
+const ImageGalleryItem = ({ src, alt }) => {
   return (
-    <div>
-      <li className={css.imageGalleryItem}>
-        <img className={css.imageGalleryItem} src="" alt="" />
-      </li>
-    </div>
+    <li className={css.imageGalleryItem}>
+      <img className={css.imageGalleryItem} src={src} alt={alt} />
+    </li>
   );
 };
 

@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
-import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
+import React from 'react';
 import css from './ImageGallery.module.css';
+import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
-export default class ImageGallery extends Component {
-  render() {
-    return (
-      <div>
-        <ul className={css.imageGallery}>
-          <ImageGalleryItem />
-        </ul>
-      </div>
-    );
-  }
-}
+const ImageGallery = ({ images }) => {
+  return (
+    <div>
+      <ul className={css.imageGallery}>
+        {images.map(image => (
+          <ImageGalleryItem
+            key={image.id}
+            src={image.webformatURL}
+            alt={image.id}
+          />
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default ImageGallery;
