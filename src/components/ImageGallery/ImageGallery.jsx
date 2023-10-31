@@ -2,7 +2,7 @@ import React from 'react';
 import css from './ImageGallery.module.css';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
-const ImageGallery = ({ images }) => {
+const ImageGallery = ({ images, openModal }) => {
   return (
     <div>
       <ul className={css.imageGallery}>
@@ -11,6 +11,7 @@ const ImageGallery = ({ images }) => {
             key={image.id}
             src={image.webformatURL}
             alt={image.id}
+            openModal={openModal}
           />
         ))}
       </ul>

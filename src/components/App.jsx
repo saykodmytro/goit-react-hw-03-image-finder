@@ -6,6 +6,7 @@ import css from './App.module.css';
 import fetchPhotos from '../API/pixabay-api';
 import Loader from './Loader/Loader';
 import Button from './Button/Button';
+import Modal from './Modal/Modal';
 
 export default class App extends Component {
   state = {
@@ -16,6 +17,8 @@ export default class App extends Component {
     error: false,
     perPage: 12,
     btnLoadMore: false,
+    isOpenModal: false,
+    modalData: null,
   };
 
   handleSearch = e => {
@@ -75,20 +78,44 @@ export default class App extends Component {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
+  openModal = someDataToModal => {
+    this.setState({
+      isOpenModal: true,
+      modalData: someDataToModal,
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      isOpenModal: false,
+      modalData: null,
+    });
+  };
+
   render() {
     const { images, loading } = this.state;
 
     return (
       <div className={css.app}>
-        {loading && <Loader />}
         <Searchbar onSubmit={this.handleSearch} />
-        {images && images.length > 0 && <ImageGallery images={images} />}
+        {loading && <Loader />}
+
+        {images && images.length > 0 && (
+          <ImageGallery images={images} openModal={this.openModal} />
+        )}
         {this.state.btnLoadMore && <Button onClick={this.handleLoadMore} />}
         <Toaster
           autoClose={3000}
           position="top-right"
           containerClassName="text-base"
         />
+
+        {this.state.modalData !== null && (
+          <Modal
+            closeModal={this.closeModal}
+            modalData={this.state.modalData}
+          />
+        )}
       </div>
     );
   }
