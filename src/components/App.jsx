@@ -35,18 +35,13 @@ export default class App extends Component {
 
   async componentDidUpdate(_, prevState) {
     if (
-      (prevState.query !== this.state.query ||
-        prevState.page !== this.state.page) &&
-      this.state.query !== ''
+      prevState.query !== this.state.query ||
+      prevState.page !== this.state.page
     ) {
       try {
         this.setState({ loading: true });
         const { query, page } = this.state;
         const resp = await fetchPhotos(query, page);
-
-        if (prevState.query === this.state.query) {
-          return;
-        }
 
         const newImages = resp.hits.map(
           ({ id, webformatURL, largeImageURL, tags }) => ({
